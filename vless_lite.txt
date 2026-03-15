@@ -28,3 +28,554 @@ https://web231c271b22a28.free-node.icu/znev42sIT9aWXI8qhj0q9TE1e6C6Ho/admin9-TRJ
 https://web231c271b22a28.free-node.icu/znev42sIT9aWXI8qhj0q9TE1e6C6Ho/admin9-VLESS-CLIENT.json
 https://web231c271b22a28.free-node.icu/znev42sIT9aWXI8qhj0q9TE1e6C6Ho/admin10-TRJ-CLIENT.json
 https://web231c271b22a28.free-node.icu/znev42sIT9aWXI8qhj0q9TE1e6C6Ho/admin10-VLESS-CLIENT.json
+{
+  "log": {
+    "level": "fatal",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-remote",
+        "address": "tls://1.1.1.1",
+        "detour": "proxy"
+      },
+      {
+        "tag": "dns-local",
+        "address": "195.208.4.1",
+        "strategy": "ipv4_only"
+      },
+      {
+        "tag": "dns-block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "category-ads-all"
+        ],
+        "server": "dns-block",
+        "disable_cache": true
+      },
+      {
+        "domain_suffix": [
+          "habr.com",
+          "kemono.su",
+          "jut.su",
+          "kara.su",
+          "theins.ru",
+          "tvrain.ru",
+          "echo.msk.ru",
+          "the-village.ru",
+          "snob.ru",
+          "novayagazeta.ru",
+          "moscowtimes.ru"
+        ],
+        "domain_keyword": [
+          "animego",
+          "yummyanime",
+          "yummy-anime",
+          "animeportal",
+          "anime-portal",
+          "animedub",
+          "anidub",
+          "animelib",
+          "ikianime",
+          "anilibria"
+        ],
+        "rule_set": [
+          "telegram",
+          "google"
+        ],
+        "server": "dns-remote"
+      },
+      {
+        "domain_suffix": [
+          ".ru",
+          ".su",
+          ".ru.com",
+          ".ru.net",
+          "web231c271b22a28.free-node.icu",
+          "wikipedia.org",
+          "kudago.com",
+          "kinescope.io",
+          "redheadsound.studio",
+          "plplayer.online",
+          "lomont.site",
+          "remanga.org",
+          "shopstory.live"
+        ],
+        "domain_keyword": [
+          "xn--",
+          "miradres",
+          "premier",
+          "shutterstock",
+          "2gis",
+          "diginetica",
+          "kinescopecdn",
+          "researchgate",
+          "nextcloud",
+          "wiki",
+          "kaspersky",
+          "stepik",
+          "likee",
+          "yappy",
+          "pikabu",
+          "okko",
+          "wink",
+          "kion",
+          "wildberries",
+          "aliexpress"
+        ],
+        "rule_set": [
+          "category-gov-ru",
+          "yandex",
+          "vk",
+          "mailru",
+          "ozon",
+          "zoom",
+          "reddit",
+          "twitch",
+          "tumblr",
+          "pinterest",
+          "deviantart",
+          "duckduckgo",
+          "yahoo",
+          "mozilla",
+          "oracle",
+          "adobe",
+          "blender",
+          "drweb",
+          "gitlab",
+          "debian",
+          "canonical",
+          "python",
+          "doi",
+          "springer",
+          "elsevier",
+          "sciencedirect",
+          "clarivate",
+          "sci-hub",
+          "duolingo",
+          "torrent-clients"
+        ],
+        "server": "dns-local"
+      },
+      {
+        "inbound": [
+          "tun-in"
+        ],
+        "server": "dns-remote"
+      }
+    ],
+    "final": "dns-local"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "stack": "system",
+      "address": [
+        "172.19.0.1/28",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "strict_route": true,
+      "sniff_override_destination": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "trojan",
+      "tag": "proxy",
+      "server": "web231c271b22a28.free-node.icu",
+      "server_port": 443,
+      "password": "W9Nixgve2OYZXvZEd1RMF9qJQjWROw",
+      "tls": {
+        "enabled": true,
+        "server_name": "web231c271b22a28.free-node.icu",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "randomized"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/B8Uj92VCeEaAqouCmA71pWy1JKExtE"
+      },
+      "multiplex": {
+        "enabled": true,
+        "padding": true
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "category-ads-all"
+        ],
+        "action": "reject",
+        "method": "drop"
+      },
+      {
+        "domain_suffix": [
+          "habr.com",
+          "kemono.su",
+          "jut.su",
+          "kara.su",
+          "theins.ru",
+          "tvrain.ru",
+          "echo.msk.ru",
+          "the-village.ru",
+          "snob.ru",
+          "novayagazeta.ru",
+          "moscowtimes.ru"
+        ],
+        "domain_keyword": [
+          "animego",
+          "yummyanime",
+          "yummy-anime",
+          "animeportal",
+          "anime-portal",
+          "animedub",
+          "anidub",
+          "animelib",
+          "ikianime",
+          "anilibria"
+        ],
+        "rule_set": [
+          "telegram",
+          "google"
+        ],
+        "outbound": "proxy"
+      },
+      {
+        "domain_suffix": [
+          ".ru",
+          ".su",
+          ".ru.com",
+          ".ru.net",
+          "web231c271b22a28.free-node.icu",
+          "wikipedia.org",
+          "kudago.com",
+          "kinescope.io",
+          "redheadsound.studio",
+          "plplayer.online",
+          "lomont.site",
+          "remanga.org",
+          "shopstory.live"
+        ],
+        "domain_keyword": [
+          "xn--",
+          "miradres",
+          "premier",
+          "shutterstock",
+          "2gis",
+          "diginetica",
+          "kinescopecdn",
+          "researchgate",
+          "nextcloud",
+          "wiki",
+          "kaspersky",
+          "stepik",
+          "likee",
+          "yappy",
+          "pikabu",
+          "okko",
+          "wink",
+          "kion",
+          "wildberries",
+          "aliexpress"
+        ],
+        "ip_cidr": [
+          "82.22.172.132"
+        ],
+        "rule_set": [
+          "category-gov-ru",
+          "yandex",
+          "vk",
+          "mailru",
+          "ozon",
+          "zoom",
+          "reddit",
+          "twitch",
+          "tumblr",
+          "pinterest",
+          "deviantart",
+          "duckduckgo",
+          "yahoo",
+          "mozilla",
+          "oracle",
+          "adobe",
+          "blender",
+          "drweb",
+          "gitlab",
+          "debian",
+          "canonical",
+          "python",
+          "doi",
+          "springer",
+          "elsevier",
+          "sciencedirect",
+          "clarivate",
+          "sci-hub",
+          "duolingo",
+          "torrent-clients"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "action": "resolve",
+        "strategy": "prefer_ipv4"
+      },
+      {
+        "rule_set": [
+          "geoip-ru"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "inbound": [
+          "tun-in"
+        ],
+        "outbound": "proxy"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "torrent-clients",
+        "type": "remote",
+        "format": "source",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/torrent-clients.json"
+      },
+      {
+        "tag": "geoip-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geoip-ru.srs"
+      },
+      {
+        "tag": "category-gov-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-category-gov-ru.srs"
+      },
+      {
+        "tag": "yandex",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-yandex.srs"
+      },
+      {
+        "tag": "google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-google.srs"
+      },
+      {
+        "tag": "telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-telegram.srs"
+      },
+      {
+        "tag": "vk",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-vk.srs"
+      },
+      {
+        "tag": "mailru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-mailru.srs"
+      },
+      {
+        "tag": "ozon",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-ozon.srs"
+      },
+      {
+        "tag": "zoom",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-zoom.srs"
+      },
+      {
+        "tag": "reddit",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-reddit.srs"
+      },
+      {
+        "tag": "twitch",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-twitch.srs"
+      },
+      {
+        "tag": "tumblr",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-tumblr.srs"
+      },
+      {
+        "tag": "4chan",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-4chan.srs"
+      },
+      {
+        "tag": "pinterest",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-pinterest.srs"
+      },
+      {
+        "tag": "deviantart",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-deviantart.srs"
+      },
+      {
+        "tag": "duckduckgo",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-duckduckgo.srs"
+      },
+      {
+        "tag": "yahoo",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-yahoo.srs"
+      },
+      {
+        "tag": "mozilla",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-mozilla.srs"
+      },
+      {
+        "tag": "oracle",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-oracle.srs"
+      },
+      {
+        "tag": "adobe",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-adobe.srs"
+      },
+      {
+        "tag": "blender",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-blender.srs"
+      },
+      {
+        "tag": "drweb",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-drweb.srs"
+      },
+      {
+        "tag": "gitlab",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-gitlab.srs"
+      },
+      {
+        "tag": "debian",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-debian.srs"
+      },
+      {
+        "tag": "canonical",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-canonical.srs"
+      },
+      {
+        "tag": "python",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-python.srs"
+      },
+      {
+        "tag": "doi",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-doi.srs"
+      },
+      {
+        "tag": "springer",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-springer.srs"
+      },
+      {
+        "tag": "elsevier",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-elsevier.srs"
+      },
+      {
+        "tag": "sciencedirect",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-sciencedirect.srs"
+      },
+      {
+        "tag": "clarivate",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-clarivate.srs"
+      },
+      {
+        "tag": "sci-hub",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-sci-hub.srs"
+      },
+      {
+        "tag": "duolingo",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-duolingo.srs"
+      },
+      {
+        "tag": "category-ads-all",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://web231c271b22a28.free-node.icu/o6C8tF8YiDGbdyZfEy1gjm0A9UhOmY/geosite-category-ads-all.srs"
+      }
+    ]
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}
